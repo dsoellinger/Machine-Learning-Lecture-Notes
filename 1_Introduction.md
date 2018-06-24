@@ -42,7 +42,7 @@ Active learners interact with the environment at training time. For example, by 
 
 #### Probability space
 
-A probability space ($\Omega, \mathcal{F}, \mathcal{P}$) is a mathematical construct that models a real-world process (or “experiment”) consisting of states that occur randomly.
+A probability space ($\Omega, \mathcal{F}, \mathcal{D}$) is a mathematical construct that models a real-world process (or “experiment”) consisting of states that occur randomly.
 
 A probability space has three components:
 
@@ -130,3 +130,5 @@ $\forall a > 0: \mathbb{P}[|Z - \mathbb{E}[Z]| \geq a] \leq \frac{\mathbb{V}[Z]}
 
 > **Hoeffding’s inequality**  
 $\mathbb{P}[ |\frac{1}{m} \sum_{i=1}^m Z_i - \mu | \geq \epsilon ] \leq 2e^{\frac{-2m \epsilon^2}{(b-a)^2}}$
+
+
