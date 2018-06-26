@@ -22,7 +22,7 @@ Formally, a learner A chooses the hypthesis h as follows:
 
 $ERM_H(S) \in \text{arg min}_{h \in H} L_S(h)$
 
-### Generalization error
+### Generalization error (realizable)
 
 Given a hypothesis h, a true labeling function f and a probability distribution
 D over X , the generalization error (or risk) of h is defined as
@@ -36,7 +36,7 @@ We can also say that the generalization error of h is the **expected error based
 
 **Note:** If we are able to find a hypthesis with $L_{D,f}=0$, we know that it can perfectly classify our data. However, in practice, we won't be able to "calculate" the generalization error since it would require to "see" every feature at least once.
 
-### Empirical error
+### Empirical error (realizable)
 
 Given a hypothesis h, a true labeling function f and a training sample S, the
 empirical error (or empirical risk) of h is defined as
@@ -230,3 +230,82 @@ $- \epsilon m < ln(\delta) - ln(|H|)$
 $m \geq \frac{-ln(\delta) + ln(|H|)}{\epsilon}$
 
 $m \geq \frac{ln(|H| / \delta)}{\epsilon}$
+
+
+We've just derived our first import corollary!
+
+> **PAC learning of finite hypothesis classes H**
+> 
+> Fix $\epsilon$, $\delta \in (0, 1)$.  
+> If $m \geq \frac{log(|H|/\delta)}{\epsilon}$, then for any D, f (assuming
+realizability), with probability $1 − \delta$ (over the choice of S of size m), we have (for every ERM hypothesis $h_S$)  
+> $\hspace{8cm} L_{D,f}(h_S) \leq \epsilon$
+
+
+### PAC Learning
+We've just shown that finite hypothesis classes are PAC-learnable. However, we still lack a formal definition of PAC learnability. Therefore, let's define it now!
+
+> **PAC learnability**
+> 
+> A hypothesis class H is PAC learnable if $\exists m_H: (0,1)^2 \rightarrow N$ and a learning algorithm A with the following property: 
+> 
+> For   
+> - every $\delta \in (0,1)$  
+> - every distribution D over X  
+> - every label function $f: X \rightarrow Y$  
+> 
+> if realizability holds w.r.t. H, D, f , then running A on $m \geq m_H(\epsilon, \delta)$ labeled (by f ) i.i.d. samples of D, A returns a hypothesis h with
+probability $1 − \delta$  
+> $\hspace{8cm}L_{D,f}(h) \leq \epsilon$.
+
+### Agnostic PAC learning
+
+Unfortunately, to show PAC learnability we have to make many and also really strong assumptions.  However, we can try to relax it a little bit and obtain what is called **agnostic PAC learnability**.
+
+For agnostic PAC learnablity we take our PAC learnability and **drop the realizability assumption**.
+
+What does this mean? Well, it means that we can't guarantee that a sample drawn from our distribution $D$ is assignable to a *unique* label. Consequently, we also can't guarantee that there exists a perfect labeling function $f$ since our dataset is not perfectly separable.
+
+Hence, we need to redefine a few things to fit in the context of agnostic PAC learnability.
+
+First, we say that $D$ is now a propability distribution over $X \times Y$.
+
+Second, we need to redefine the generalization error / empirical error to fit to our new distribution.
+
+### Generalization error (non-realizable)
+
+$L_{D}(h) = \mathbb{P}_{(x,y) \sim D}[h(x) \neq y] = D(\{(x,y) \in X \times Y: h(x) \neq y\})$
+
+### Empirical error (non-realizable)
+
+$L_{S}(h) = \frac{|i \in [m]: h(x_i) \neq y_i|}{m}$
+
+### General loss function
+
+The generalization / empirical error we used so far only works for classification problems. Once we have to deal with regression problems we need another type of error measure.  
+Fortunately, we can rewrite our error functions in a way that they are indepent of the problem-specific error function.
+
+We therefore define a so-called **loss-function $l$**. 
+
+> Given a hypothesis class H and some domain Z, the function
+> 
+> $l: H \times Z \rightarrow \mathbb{R}$
+> 
+> is called a loss function.
+
+
+### Generalization error (general)
+
+$L_{D}(h) = \mathbb{E}_{Z \sim D}[l(h,z)]$
+
+### Empirical error (general)
+
+$L_{D}(h) = \frac{1}{m} \sum_{i=1}^m l(h,z_i)$
+
+**Example:**
+
+- **0-1 loss**  
+  $l_{0-1}(h,(x,y)) = 1_{h(x) \neq y}$
+
+- **Squared loss**  
+  $l_{sq}(h,(x,y)) = (h(x) - y)^2$
