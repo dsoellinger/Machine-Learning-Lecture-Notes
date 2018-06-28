@@ -128,7 +128,13 @@ its mean, or for it to deviate from its mean.
 > **Chebychev’s inequality**  
 $\forall a > 0: \mathbb{P}[|Z - \mathbb{E}[Z]| \geq a] \leq \frac{\mathbb{V}[Z]}{a^2}$
 
-> **Hoeffding’s inequality**  
-$\mathbb{P}[ |\frac{1}{m} \sum_{i=1}^m Z_i - \mu | \geq \epsilon ] \leq 2e^{\frac{-2m \epsilon^2}{(b-a)^2}}$
+> **Hoeffding’s inequality**
+> 
+> - Let $Z_1$, ..., $Z_m$ be a sequence of m i.i.d. RV's  
+> - $\overline{Z} = 1/m \sum_i Z_i$ (i.e. empirical average)  
+> - $\mathbb{E}[\overline{Z}] = \mu$  
+> - $\forall i: \mathbb{P}[a \leq Z_i \leq b] = 1$
+> 
+> $\mathbb{P}[ |\frac{1}{m} \sum_{i=1}^m Z_i - \mu | \geq \epsilon ] \leq 2e^{\frac{-2m \epsilon^2}{(b-a)^2}}$
 
 

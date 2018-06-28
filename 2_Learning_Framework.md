@@ -22,7 +22,7 @@ Formally, a learner A chooses the hypthesis h as follows:
 
 $ERM_H(S) \in \text{arg min}_{h \in H} L_S(h)$
 
-### Generalization error (realizable)
+### Generalization error (realizable case)
 
 Given a hypothesis h, a true labeling function f and a probability distribution
 D over X , the generalization error (or risk) of h is defined as
@@ -36,7 +36,7 @@ We can also say that the generalization error of h is the **expected error based
 
 **Note:** If we are able to find a hypthesis with $L_{D,f}=0$, we know that it can perfectly classify our data. However, in practice, we won't be able to "calculate" the generalization error since it would require to "see" every feature at least once.
 
-### Empirical error (realizable)
+### Empirical error (realizable case)
 
 Given a hypothesis h, a true labeling function f and a training sample S, the
 empirical error (or empirical risk) of h is defined as
