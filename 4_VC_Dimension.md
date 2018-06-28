@@ -109,7 +109,7 @@ Or in other words, ...
 > **VC-Dim**
 > 
 > **Lower bound:**  
-> There exits a set of size d that is shattered: VC(H) $\geq$ d
+> There exits a set of size d that is shattered: VC(H) = d
 > 
 > **Upper bound:**  
 > No set of set d+1 is shattered  VC(H) < d+1
@@ -117,8 +117,6 @@ Or in other words, ...
 
 **Proof:**  
 Show that finite VC-Dimension implies uniform convergence. Skipping proof for now since this one is quite tough.
-
-> Let H be such that VCdim(H) = $\infty$. Then H is not PAC learnable.
 
 **Examples:**
 
@@ -181,3 +179,53 @@ intervals small enough.
 - **Circles**  
 
   $VCdim(H) = 3$
+  
+  
+> **Corollary**
+> 
+> Let H be a hypothesis class of functions from X to {0, 1}. Assume
+there exists a set C $\subset$ X of size 2m that is shattered by H. Then for
+any learning algorithm A, there exists a distribution D over X $\times$ {0, 1}
+and h $\in$ H such that $L_D(h) = 0$, but with probability of 1/7 over
+the choice of $S \sim D_m$, we have $LD(A(S)) \sim 1/8$.
+
+      
+   
+> **VCdim(H)=$\infty$ implies that H is not PAC learnable**
+>
+> Let H be such that VCdim(H) = $\infty$. Then H is not PAC learnable.
+> 
+> **Proof:**
+> 
+> Since H has an infinite VC-dimension, for any training set size m, there exists a shattered set of size 2m, and the claim follows from the corollary above.
+> 
+> 
+> 
+> **If $|H|$ is finite, also the VCdim($|H|$) is finite**
+> 
+> **Proof:**
+> 
+> Let's consider a set $|H|$ that is finite.  
+> 
+> For any set C, restricting H to C implies that: $\hspace{1cm} |H_C| \leq |H|$
+> 
+> If H does not shatter $H_c$, we have: $|H_C| < 2^{|C|}$  
+> If H shatters $H_c$, we have: $|H_C| = 2^{|C|}$.
+> 
+> Therefore, we can say that:
+> 
+> $|H_C| \leq 2^{|C|} \leq |H| \rightarrow |C| \leq log(|H|)$
+> 
+> Since this needs to hold for any C it also needs to hold for max $|C|$.
+> 
+> Therefore, we can say that $VCdim(H) \leq log(|H|)$.
+
+
+Finally, some other theorems which might come in handy:
+
+> **Growth function**
+> 
+> Let H be a hypothesis class. Then the growth function of H, denoted by $\tau_H: N \rightarrow N$, is defined as
+> 
+> $\tau_H(m) = max_{C \subset X: |C| = m} |H_C|$
+
